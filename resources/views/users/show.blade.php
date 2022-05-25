@@ -4,9 +4,9 @@
     <div class="bg-light p-4 rounded">
         <h1>Show user</h1>
         <div class="lead">
-            
+
         </div>
-        
+
         <div class="container mt-4">
             <div>
                 Name: {{ $user->name }}
@@ -16,6 +16,9 @@
             </div>
             <div>
                 Username: {{ $user->username }}
+            </div>
+            <div>
+                Password: {{ $user->password }}
             </div>
         </div>
 
