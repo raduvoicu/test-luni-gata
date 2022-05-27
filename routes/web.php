@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -58,5 +59,5 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+Route::post('allusers',[App\Http\Controllers\UsersController::class, 'allUsers']);
 Auth::routes();
