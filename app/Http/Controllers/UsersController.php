@@ -16,7 +16,11 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::first()->paginate(15);
+        $users = User::where(function($query){
+//            $query->where('email', 'like', 'p%')
+//                ->orWhere('email', 'like', 'c%')
+//                ->orWhere('email', 'like', '%com');
+        })->first()->paginate(7);
 
         return view('users.index', compact('users'));
     }

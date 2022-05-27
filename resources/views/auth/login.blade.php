@@ -1,38 +1,94 @@
-@extends('layouts.auth-master')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{{ config('app.name') }}</title>
 
-@section('content')
-    <form method="post" action="{{ route('login.perform') }}">
-        
-        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-        <img class="mb-4" src="{!! url('images/bootstrap-logo.svg') !!}" alt="" width="72" height="57">
-        
-        <h1 class="h3 mb-3 fw-normal">Login</h1>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-        @include('layouts.partials.messages')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+          integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+          crossorigin="anonymous"/>
 
-        <div class="form-group form-floating mb-3">
-            <input type="text" class="form-control" name="username" value="{{ old('username') }}" placeholder="Username" required="required" autofocus>
-            <label for="floatingName">Email or Username</label>
-            @if ($errors->has('username'))
-                <span class="text-danger text-left">{{ $errors->first('username') }}</span>
-            @endif
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+
+</head>
+<body class="hold-transition login-page">
+<div class="login-box">
+    <div class="login-logo">
+        <a href="{{ url('/home') }}"><b>{{ config('app.name') }}</b></a>
+    </div>
+    <!-- /.login-logo -->
+
+    <!-- /.login-box-body -->
+    <div class="card">
+        <div class="card-body login-card-body">
+            <p class="login-box-msg">Sign in to start your session</p>
+
+            <form method="post" action="{{ url('/login') }}">
+                @csrf
+
+                <div class="input-group mb-3">
+                    <input type="email"
+                           name="email"
+                           value="{{ old('email') }}"
+                           placeholder="Email"
+                           class="form-control @error('email') is-invalid @enderror">
+                    <div class="input-group-append">
+                        <div class="input-group-text"><span class="fas fa-envelope"></span></div>
+                    </div>
+                    @error('email')
+                    <span class="error invalid-feedback">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="input-group mb-3">
+                    <input type="password"
+                           name="password"
+                           placeholder="Password"
+                           class="form-control @error('password') is-invalid @enderror">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                    @error('password')
+                    <span class="error invalid-feedback">{{ $message }}</span>
+                    @enderror
+
+                </div>
+
+                <div class="row">
+                    <div class="col-8">
+                        <div class="icheck-primary">
+                            <input type="checkbox" id="remember">
+                            <label for="remember">Remember Me</label>
+                        </div>
+                    </div>
+
+                    <div class="col-4">
+                        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                    </div>
+
+                </div>
+            </form>
+
+            <p class="mb-1">
+                <a href="{{ route('password.request') }}">I forgot my password</a>
+            </p>
+            <p class="mb-0">
+                <a href="{{ route('register') }}" class="text-center">Register a new membership</a>
+            </p>
         </div>
-        
-        <div class="form-group form-floating mb-3">
-            <input type="password" class="form-control" name="password" value="{{ old('password') }}" placeholder="Password" required="required">
-            <label for="floatingPassword">Password</label>
-            @if ($errors->has('password'))
-                <span class="text-danger text-left">{{ $errors->first('password') }}</span>
-            @endif
-        </div>
+        <!-- /.login-card-body -->
+    </div>
 
-        <div class="form-group mb-3">
-            <label for="remember">Remember me</label>
-            <input type="checkbox" name="remember" value="1">
-        </div>
+</div>
+<!-- /.login-box -->
 
-        <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
-        
-        @include('auth.partials.copy')
-    </form>
-@endsection
+<script src="{{ mix('js/app.js') }}" defer></script>
+
+</body>
+</html>

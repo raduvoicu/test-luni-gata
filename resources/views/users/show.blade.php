@@ -1,8 +1,8 @@
-@extends('layouts.app-master')
+@extends('layouts.app')
 
 @section('content')
     <div class="bg-light p-4 rounded">
-        <h1>Show user</h1>
+        <h1>{{ $user->name }}</h1>
         <div class="lead">
 
         </div>
@@ -18,7 +18,7 @@
                 Username: {{ $user->username }}
             </div>
             <div>
-                Password: {{ $user->password }}
+                Password hash: {{ $user->password }}
             </div>
         </div>
 
