@@ -55,9 +55,12 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             Route::delete('/{user}/delete', 'UsersController@destroy')->name('users.destroy');
         });
 
+        Route::resource('json','JsonController');
+
     });
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::post('allusers',[App\Http\Controllers\UsersController::class, 'allUsers']);
+Route::post('allUsers',[App\Http\Controllers\UsersController::class, 'allUsers']);
+Route::get('/json',[App\Http\Controllers\JsonController::class,'getJSON']);
 Auth::routes();

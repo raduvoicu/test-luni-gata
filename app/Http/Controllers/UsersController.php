@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\User;
@@ -20,6 +19,7 @@ class UsersController extends Controller
      */
     public function index()
     {
+        file_get_contents('https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css');
         $users = User::where(function($query){
 //            $query->where('email', 'like', 'p%')
 //                ->orWhere('email', 'like', 'c%')
@@ -127,6 +127,7 @@ class UsersController extends Controller
             2 =>'email',
             3 =>'username',
             4 =>'password',
+            5 =>'actions'
         );
         $totalData = User::count();
         $totalFiltered = $totalData;
@@ -164,6 +165,7 @@ class UsersController extends Controller
                 $nestedData['email'] = $row->email;
                 $nestedData['username'] = $row->username;
                 $nestedData['password'] = $row->password;
+                $nestedData['actions'] = "<a href=\"/users/$row->id/show\">Show</a><a href=\"/users/$row->id/edit\">Edit</a><a href=\"/users/$row->id/delete\"><span class='glyphicon glyphicon-trash'></span>Delete</a>";
                 $data[] = $nestedData;
 
             }

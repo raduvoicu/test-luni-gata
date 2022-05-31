@@ -1,5 +1,5 @@
-@extends('layouts.app')
-
+{{--@extends('layouts.app')--}}
+@extends('adminlte::page')
 @section('content')
     <div class="bg-light p-4 rounded">
         <h1>Add new user</h1>
