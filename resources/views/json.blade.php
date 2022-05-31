@@ -20,6 +20,18 @@
                 <th scope="col" data-priority="1">Body</th>
             </tr>
             </thead>
+            <tbody>
+
+                <?php $json = json_decode(file_get_contents('https://jsonplaceholder.typicode.com/posts'),true);?>
+                @foreach($json as $onejson)
+                <tr>
+                    <td>{{$onejson['id']}}</td>
+                    <td>{{$onejson['userId']}}</td>
+                    <td>{{$onejson['title']}}</td>
+                    <td>{{$onejson['body']}}</td>
+                </tr>
+                @endforeach
+            </tbody>
             <tfoot>
             <tr>
                 <th scope="col" data-priority="1">#</th>
