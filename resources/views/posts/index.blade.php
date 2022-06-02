@@ -1,19 +1,12 @@
 @extends('adminlte::page')
-@section('title', 'Users')
+@section('title','Posts')
 
 @section('content')
     <div class="container-fluid">
         <div class="bg-light p-4 rounded">
-            <h1>Users</h1>
+            <h1>Posts</h1>
             <div class="lead">
-                Manage your users here.
-
-                <a href="{{ route('users.create') }}" class="btn btn-primary btn-sm float-right">Add new
-                    user</a>
-            </div>
-
-            <div class="mt-2">
-                @include('layouts.partials.messages')
+                See your json data here.
             </div>
 
             <table class="table table-bordered table-responsive table-striped"
@@ -22,33 +15,27 @@
                 <thead>
                 <tr>
                     <th scope="col" data-priority="1">#</th>
-                    <th scope="col" data-priority="1">Name</th>
-                    <th scope="col" data-priority="1">Email</th>
-                    <th scope="col" data-priority="1">Username</th>
-                    <th scope="col">Password Hash</th>
-                    <th scope="col">Actions</th>
+                    <th scope="col" data-priority="1">User</th>
+                    <th scope="col" data-priority="1">Title</th>
+                    <th scope="col" data-priority="1">Body</th>
                 </tr>
                 </thead>
                 <tfoot>
                 <tr>
                     <th scope="col" data-priority="1">#</th>
-                    <th scope="col" data-priority="1">Name</th>
-                    <th scope="col" data-priority="1">Email</th>
-                    <th scope="col" data-priority="1">Username</th>
-                    <th scope="col">Password Hash</th>
-                    <th scope="col">Actions</th>
+                    <th scope="col" data-priority="1">User</th>
+                    <th scope="col" data-priority="1">Title</th>
+                    <th scope="col" data-priority="1">Body</th>
                 </tr>
                 </tfoot>
             </table>
         </div>
     </div>
-
 @stop
 
 @section('js')
-    <script> console.log('Hi!');
+    <script>console.log('Hi!');
         $(document).ready(function () {
-            console.log("mesaj");
             $('#pageTable').DataTable({
                 "columnDefs": [
                     // { "visible": false, "className": "dt-right", "targets": [0]},
@@ -64,7 +51,7 @@
                 "stateSave": true,
                 "pageLength": 50,
                 "ajax": {
-                    "url": "{{ url('allUsers') }}",
+                    "url": "{{ url('allPosts') }}",
                     "dataType": "json",
                     "type": "POST",
                     "data": function (data) {
@@ -74,14 +61,11 @@
 
                 "columns": [
                     {"data": "id"},
-                    {"data": "name"},
-                    {"data": "email"},
-                    {"data": "username"},
-                    {"data": "password"},
-                    {"data": "actions"},
+                    {"data": "userId"},
+                    {"data": "title"},
+                    {"data": "body"},
                 ],
             });
-
-        });
+        })
     </script>
 @stop

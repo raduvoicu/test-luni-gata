@@ -55,6 +55,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             Route::delete('/{user}/delete', 'UsersController@destroy')->name('users.destroy');
         });
 
+        Route::group(['prefix'=>'posts'],function(){
+            Route::get('/', 'PostsController@index')->name('posts.index');
+        });
+
         Route::resource('json','JsonController');
 
     });
@@ -62,5 +66,5 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('allUsers',[App\Http\Controllers\UsersController::class, 'allUsers']);
-//Route::get('/json',[App\Http\Controllers\JsonController::class,'getJSON']);
+Route::post('allPosts',[App\Http\Controllers\PostsController::class,'allPosts']);
 Auth::routes();

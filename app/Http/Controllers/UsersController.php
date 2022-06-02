@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\User;
@@ -20,7 +21,7 @@ class UsersController extends Controller
     public function index()
     {
         file_get_contents('https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css');
-        $users = User::where(function($query){
+        $users = User::where(function ($query) {
 //            $query->where('email', 'like', 'p%')
 //                ->orWhere('email', 'like', 'c%')
 //                ->orWhere('email', 'like', '%com');
@@ -122,12 +123,12 @@ class UsersController extends Controller
     {
 
         $columns = array(
-            0 =>'id',
-            1 =>'name',
-            2 =>'email',
-            3 =>'username',
-            4 =>'password',
-            5 =>'actions'
+            0 => 'id',
+            1 => 'name',
+            2 => 'email',
+            3 => 'username',
+            4 => 'password',
+            5 => 'actions'
         );
         $totalData = User::count();
         $totalFiltered = $totalData;
@@ -137,28 +138,26 @@ class UsersController extends Controller
         $dir = $request->input('order.0.dir');
         $search = $request->input('search.value');
 
-        $query = User::when((!empty($search)), function ($query) use ($search){
+        $query = User::when((!empty($search)), function ($query) use ($search) {
 
-            $query->where(function ($query) use ($search){
-                $query->where('name','LIKE',"%{$search}%")
-                    ->orWhere('email', 'LIKE',"%{$search}%");
+            $query->where(function ($query) use ($search) {
+                $query->where('name', 'LIKE', "%{$search}%")
+                    ->orWhere('email', 'LIKE', "%{$search}%");
             });
         });
 
 
         $totalFilters = $query->count();
 
-        $rows = $query->orderBy($order,$dir)
+        $rows = $query->orderBy($order, $dir)
             ->offset($start)
             ->limit($limit)
             ->get();
 
 
         $data = array();
-        if(!empty($rows))
-        {
-            foreach ($rows as $row)
-            {
+        if (!empty($rows)) {
+            foreach ($rows as $row) {
 
                 $nestedData['id'] = $row->id;
                 $nestedData['name'] = $row->name;
@@ -172,10 +171,10 @@ class UsersController extends Controller
         }
 
         $json_data = array(
-            "draw"            => intval($request->input('draw')),
-            "recordsTotal"    => intval($totalData),
+            "draw" => intval($request->input('draw')),
+            "recordsTotal" => intval($totalData),
             "recordsFiltered" => intval($totalFiltered),
-            "data"            => $data
+            "data" => $data
         );
 
         echo json_encode($json_data);
