@@ -56,7 +56,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         });
 
         Route::group(['prefix'=>'posts'],function(){
-            Route::get('/', 'PostsController@index')->name('posts.index');
+            Route::get('/', 'DataRowsController@index')->name('posts.index');
         });
 
         Route::resource('json','JsonController');
@@ -66,5 +66,5 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('allUsers',[App\Http\Controllers\UsersController::class, 'allUsers']);
-Route::post('allPosts',[App\Http\Controllers\PostsController::class,'allPosts']);
+Route::post('allPosts',[App\Http\Controllers\DataRowsController::class,'allPosts']);
 Auth::routes();

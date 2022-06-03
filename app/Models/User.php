@@ -27,7 +27,6 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'username',
         'password',
     ];
 
@@ -59,5 +58,9 @@ class User extends Authenticatable
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = bcrypt($value);
+    }
+
+    public function user(){
+        return $this->belongsTo('App\Models\DataRow','id');
     }
 }
