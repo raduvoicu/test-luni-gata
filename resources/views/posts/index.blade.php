@@ -16,6 +16,7 @@
                 <tr>
                     <th scope="col" data-priority="1">#</th>
                     <th scope="col" data-priority="1">User</th>
+                    <th scope="col" data-priority="1">Username</th>
                     <th scope="col" data-priority="1">Title</th>
                     <th scope="col" data-priority="1">Body</th>
                 </tr>
@@ -24,6 +25,7 @@
                 <tr>
                     <th scope="col" data-priority="1">#</th>
                     <th scope="col" data-priority="1">User</th>
+                    <th scope="col" data-priority="1">Username</th>
                     <th scope="col" data-priority="1">Title</th>
                     <th scope="col" data-priority="1">Body</th>
                 </tr>
@@ -62,6 +64,7 @@
                 "columns": [
                     {"data": "id"},
                     {"data": "userId"},
+                    {"data": "userName"},
                     {"data": "title"},
                     {"data": "body"},
                 ],

@@ -34,17 +34,7 @@
                         <span class="text-danger text-left">{{ $errors->first('email') }}</span>
                     @endif
                 </div>
-                <div class="mb-3">
-                    <label for="username" class="form-label">Username</label>
-                    <input value="{{ $user->username }}"
-                        type="text"
-                        class="form-control"
-                        name="username"
-                        placeholder="Username" required>
-                    @if ($errors->has('username'))
-                        <span class="text-danger text-left">{{ $errors->first('username') }}</span>
-                    @endif
-                </div>
+
                 <div class="form-group mb-3">
                     <label for="password">Password</label>
                     <input type="password" class="form-control" name="password" value="{{ old('password') }}"

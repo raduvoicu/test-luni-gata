@@ -162,7 +162,7 @@ class UsersController extends Controller
                 $nestedData['id'] = $row->id;
                 $nestedData['name'] = $row->name;
                 $nestedData['email'] = $row->email;
-                $nestedData['username'] = $row->username;
+                $nestedData['username'] = $row->userName;
                 $nestedData['password'] = $row->password;
                 $nestedData['actions'] = "<a href=\"/users/$row->id/show\">Show</a><a href=\"/users/$row->id/edit\">Edit</a><a href=\"/users/$row->id/delete\"><span class='glyphicon glyphicon-trash'></span>Delete</a>";
                 $data[] = $nestedData;

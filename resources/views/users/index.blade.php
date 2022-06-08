@@ -24,7 +24,6 @@
                     <th scope="col" data-priority="1">#</th>
                     <th scope="col" data-priority="1">Name</th>
                     <th scope="col" data-priority="1">Email</th>
-                    <th scope="col" data-priority="1">Username</th>
                     <th scope="col">Password Hash</th>
                     <th scope="col">Actions</th>
                 </tr>
@@ -34,7 +33,6 @@
                     <th scope="col" data-priority="1">#</th>
                     <th scope="col" data-priority="1">Name</th>
                     <th scope="col" data-priority="1">Email</th>
-                    <th scope="col" data-priority="1">Username</th>
                     <th scope="col">Password Hash</th>
                     <th scope="col">Actions</th>
                 </tr>
@@ -76,7 +74,6 @@
                     {"data": "id"},
                     {"data": "name"},
                     {"data": "email"},
-                    {"data": "username"},
                     {"data": "password"},
                     {"data": "actions"},
                 ],

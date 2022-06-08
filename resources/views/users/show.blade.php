@@ -14,9 +14,9 @@
             <div>
                 Email: {{ $user->email }}
             </div>
-            <div>
-                Username: {{ $user->username }}
-            </div>
+{{--            <div>--}}
+{{--                Username: {{ $user->username }}--}}
+{{--            </div>--}}
             <div>
                 Password hash: {{ $user->password }}
             </div>
