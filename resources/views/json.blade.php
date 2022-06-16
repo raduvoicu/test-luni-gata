@@ -1,6 +1,12 @@
-@extends('adminlte::page')
+@extends('layouts.app')
 @section('title','Json Load')
 @section('content')
+    <?php
+    $client = new GuzzleHttp\Client();
+    $url = 'https://jsonplaceholder.typicode.com/posts';
+    $res = $client->request('GET', $url)->getBody();
+    $data = json_decode($res, true);
+    ?>
     <div class="container-fluid">
         <div class="bg-light p-4 rounded">
             <h1>Json</h1>
@@ -14,30 +20,30 @@
                style="margin-top:10px; width:100%">
             <thead>
             <tr>
-                <th scope="col" data-priority="1">#</th>
-                <th scope="col" data-priority="1">User</th>
-                <th scope="col" data-priority="1">Title</th>
-                <th scope="col" data-priority="1">Body</th>
+
+                <th scope="col" data-priority="1">{{ucwords(array_keys($data[0])[0])}}</th>
+                <th scope="col" data-priority="1">{{ucwords(array_keys($data[0])[1])}}</th>
+                <th scope="col" data-priority="1">{{ucwords(array_keys($data[0])[2])}}</th>
+                <th scope="col" data-priority="1">{{ucwords(array_keys($data[0])[3])}}</th>
             </tr>
             </thead>
             <tbody>
 
-            <?php $json = json_decode(file_get_contents('https://jsonplaceholder.typicode.com/posts'), true);?>
-            @foreach($json as $onejson)
+            @foreach($data as $dataRow)
                 <tr>
-                    <td>{{$onejson['id']}}</td>
-                    <td>{{$onejson['userId']}}</td>
-                    <td>{{$onejson['title']}}</td>
-                    <td>{{$onejson['body']}}</td>
+                    <td>{{$dataRow[array_keys($data[0])[0]]}}</td>
+                    <td>{{$dataRow[array_keys($data[0])[1]]}}</td>
+                    <td>{{$dataRow[array_keys($data[0])[2]]}}</td>
+                    <td>{{$dataRow[array_keys($data[0])[3]]}}</td>
                 </tr>
             @endforeach
             </tbody>
             <tfoot>
             <tr>
-                <th scope="col" data-priority="1">#</th>
-                <th scope="col" data-priority="1">User</th>
-                <th scope="col" data-priority="1">Title</th>
-                <th scope="col" data-priority="1">Body</th>
+                <th scope="col" data-priority="1">{{ucwords(array_keys($data[0])[0])}}</th>
+                <th scope="col" data-priority="1">{{ucwords(array_keys($data[0])[1])}}</th>
+                <th scope="col" data-priority="1">{{ucwords(array_keys($data[0])[2])}}</th>
+                <th scope="col" data-priority="1">{{ucwords(array_keys($data[0])[3])}}</th>
             </tr>
             </tfoot>
         </table>

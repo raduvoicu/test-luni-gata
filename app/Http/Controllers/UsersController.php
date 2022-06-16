@@ -113,6 +113,7 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
+
         $user->delete();
 
         return redirect()->route('users.index')
@@ -126,7 +127,7 @@ class UsersController extends Controller
             0 => 'id',
             1 => 'name',
             2 => 'email',
-            3 => 'username',
+            3 => 'userStatus',
             4 => 'password',
             5 => 'actions'
         );
@@ -162,13 +163,16 @@ class UsersController extends Controller
                 $nestedData['id'] = $row->id;
                 $nestedData['name'] = $row->name;
                 $nestedData['email'] = $row->email;
-                $nestedData['username'] = $row->userName;
+                $nestedData['userStatus'] = $row->isAdmin;
                 $nestedData['password'] = $row->password;
-                $nestedData['actions'] = "<a href=\"/users/$row->id/show\">Show</a><a href=\"/users/$row->id/edit\">Edit</a><a href=\"/users/$row->id/delete\"><span class='glyphicon glyphicon-trash'></span>Delete</a>";
+                $nestedData['actions'] = "<a class=\"btn btn-outline-success\" href=\"/users/$row->id/show\">Show</a>
+                                            <a class=\"btn btn-outline-warning\" href=\"/users/$row->id/edit\">Edit</a>
+                                                <a class=\"btn btn-outline-danger\" onclick=\"return confirm('Are you sure you want to delete user $row->name?')\" href=\"/users/$row->id/delete\">Delete</a>";
                 $data[] = $nestedData;
 
             }
         }
+
 
         $json_data = array(
             "draw" => intval($request->input('draw')),

@@ -37,7 +37,7 @@
 
                 <div class="form-group mb-3">
                     <label for="password">Password</label>
-                    <input type="password" class="form-control" name="password" value="{{ old('password') }}"
+                    <input type="password" class="form-control" name="password"
                            placeholder="Password" required="required">
                     @if ($errors->has('password'))
                         <span class="text-danger text-left">{{ $errors->first('password') }}</span>
@@ -54,7 +54,7 @@
                     @endif
                 </div>
                 <button type="submit" class="btn btn-primary">Update user</button>
-                <a href="{{ route('users.index') }}" class="btn btn-default">Cancel</button>
+                <a href="{{ route('users.index') }}" class="btn btn-default">Cancel</a>
             </form>
         </div>
 

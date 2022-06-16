@@ -49,10 +49,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             Route::get('/', 'UsersController@index')->name('users.index');
             Route::get('/create', 'UsersController@create')->name('users.create');
             Route::post('/create', 'UsersController@store')->name('users.store');
-            Route::get('/{user}/show', 'UsersController@show')->name('users.show');
-            Route::get('/{user}/edit', 'UsersController@edit')->name('users.edit');
+            Route::get('/{user}/show', 'UsersController@show')->name('users.show')->where('user','[0-9]+');
+            Route::get('/{user}/edit', 'UsersController@edit')->name('users.edit')->where('user','[0-9]+');
             Route::patch('/{user}/update', 'UsersController@update')->name('users.update');
-            Route::delete('/{user}/delete', 'UsersController@destroy')->name('users.destroy');
+            Route::get('/{user}/delete', 'UsersController@destroy')->name('users.destroy');
         });
 
         Route::group(['prefix'=>'posts'],function(){

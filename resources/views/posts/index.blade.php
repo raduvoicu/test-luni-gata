@@ -1,6 +1,13 @@
-@extends('adminlte::page')
+@extends('layouts.app')
 @section('title','Posts')
-
+<?php
+$client = new GuzzleHttp\Client();
+$url = 'https://jsonplaceholder.typicode.com/posts';
+$res = $client->request('GET', $url)->getBody();
+$data = json_decode($res, true);
+$title = ucwords(array_keys($data[0])[2]);
+$body = ucwords(array_keys($data[0])[3]);
+?>
 @section('content')
     <div class="container-fluid">
         <div class="bg-light p-4 rounded">
@@ -8,17 +15,19 @@
             <div class="lead">
                 See your json data here.
             </div>
-
             <table class="table table-bordered table-responsive table-striped"
                    id="pageTable"
                    style="margin-top:10px; width:100%">
                 <thead>
+                                @for($i=0;$i<count(array_keys($data[0]));$i++)
+                                    <th scope="col" data-priority="1">{{ucwords(array_keys($data[0])[$i])}}</th>
+                                @endfor
                 <tr>
                     <th scope="col" data-priority="1">#</th>
                     <th scope="col" data-priority="1">User</th>
                     <th scope="col" data-priority="1">Username</th>
-                    <th scope="col" data-priority="1">Title</th>
-                    <th scope="col" data-priority="1">Body</th>
+                    <th scope="col" data-priority="1">{{$title}}</th>
+                    <th scope="col" data-priority="1">{{$body}}</th>
                 </tr>
                 </thead>
                 <tfoot>
@@ -26,8 +35,8 @@
                     <th scope="col" data-priority="1">#</th>
                     <th scope="col" data-priority="1">User</th>
                     <th scope="col" data-priority="1">Username</th>
-                    <th scope="col" data-priority="1">Title</th>
-                    <th scope="col" data-priority="1">Body</th>
+                    <th scope="col" data-priority="1">{{$title}}</th>
+                    <th scope="col" data-priority="1">{{$body}}</th>
                 </tr>
                 </tfoot>
             </table>
