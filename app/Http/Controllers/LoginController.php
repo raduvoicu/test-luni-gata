@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
@@ -13,22 +15,22 @@ class LoginController extends Controller
 
     /**
      * Display login page.
-     * 
+     *
      * @return Renderable
      */
-    public function show()
+    public function show(): Renderable
     {
         return view('auth.login');
     }
 
     /**
      * Handle account login request
-     * 
+     *
      * @param LoginRequest $request
-     * 
-     * @return \Illuminate\Http\Response
+     *
+     * @return RedirectResponse
      */
-    public function login(LoginRequest $request)
+    public function login(LoginRequest $request): RedirectResponse
     {
         $credentials = $request->getCredentials();
 
@@ -50,13 +52,13 @@ class LoginController extends Controller
 
     /**
      * Handle response after user authenticated
-     * 
+     *
      * @param Request $request
      * @param Auth $user
-     * 
-     * @return \Illuminate\Http\Response
+     *
+     * @return RedirectResponse
      */
-    protected function authenticated(Request $request, $user) 
+    protected function authenticated(Request $request, $user): RedirectResponse
     {
         return redirect()->intended();
     }

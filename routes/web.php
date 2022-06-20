@@ -67,4 +67,5 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('allUsers',[App\Http\Controllers\UsersController::class, 'allUsers']);
 Route::post('allPosts',[App\Http\Controllers\DataRowsController::class,'allPosts']);
+
 Auth::routes();

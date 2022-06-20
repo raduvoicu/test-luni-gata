@@ -3,15 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\RegisterRequest;
+use Illuminate\Routing\Redirector;
 
 class RegisterController extends Controller
 {
     /**
      * Display register page.
-     * 
-     * @return \Illuminate\Http\Response
+     *
+     * @return Application|Factory|View
      */
     public function show()
     {
@@ -20,12 +25,12 @@ class RegisterController extends Controller
 
     /**
      * Handle account registration request
-     * 
+     *
      * @param RegisterRequest $request
-     * 
-     * @return \Illuminate\Http\Response
+     *
+     * @return Application|RedirectResponse|Redirector
      */
-    public function register(RegisterRequest $request) 
+    public function register(RegisterRequest $request)
     {
         $user = User::create($request->validated());
 

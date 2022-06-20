@@ -163,7 +163,7 @@ class UsersController extends Controller
                 $nestedData['id'] = $row->id;
                 $nestedData['name'] = $row->name;
                 $nestedData['email'] = $row->email;
-                $nestedData['userStatus'] = $row->isAdmin;
+                $nestedData['userStatus'] = $row->userStatus;
                 $nestedData['password'] = $row->password;
                 $nestedData['actions'] = "<a class=\"btn btn-outline-success\" href=\"/users/$row->id/show\">Show</a>
                                             <a class=\"btn btn-outline-warning\" href=\"/users/$row->id/edit\">Edit</a>

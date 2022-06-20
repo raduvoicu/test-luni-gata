@@ -5,8 +5,6 @@ $client = new GuzzleHttp\Client();
 $url = 'https://jsonplaceholder.typicode.com/posts';
 $res = $client->request('GET', $url)->getBody();
 $data = json_decode($res, true);
-$title = ucwords(array_keys($data[0])[2]);
-$body = ucwords(array_keys($data[0])[3]);
 ?>
 @section('content')
     <div class="container-fluid">
@@ -19,25 +17,16 @@ $body = ucwords(array_keys($data[0])[3]);
                    id="pageTable"
                    style="margin-top:10px; width:100%">
                 <thead>
-                                @for($i=0;$i<count(array_keys($data[0]));$i++)
-                                    <th scope="col" data-priority="1">{{ucwords(array_keys($data[0])[$i])}}</th>
-                                @endfor
-                <tr>
-                    <th scope="col" data-priority="1">#</th>
-                    <th scope="col" data-priority="1">User</th>
-                    <th scope="col" data-priority="1">Username</th>
-                    <th scope="col" data-priority="1">{{$title}}</th>
-                    <th scope="col" data-priority="1">{{$body}}</th>
-                </tr>
+                @for($i=0;$i<count(array_keys($data[0]));$i++)
+                    <th scope="col" data-priority="1">{{ucwords(array_keys($data[0])[$i])}}</th>
+                @endfor
+                <th scope="col" data-priority="1">Username</th>
                 </thead>
                 <tfoot>
-                <tr>
-                    <th scope="col" data-priority="1">#</th>
-                    <th scope="col" data-priority="1">User</th>
-                    <th scope="col" data-priority="1">Username</th>
-                    <th scope="col" data-priority="1">{{$title}}</th>
-                    <th scope="col" data-priority="1">{{$body}}</th>
-                </tr>
+                @for($i=0;$i<count(array_keys($data[0]));$i++)
+                    <th scope="col" data-priority="1">{{ucwords(array_keys($data[0])[$i])}}</th>
+                @endfor
+                <th scope="col" data-priority="1">Username</th>
                 </tfoot>
             </table>
         </div>
@@ -71,11 +60,11 @@ $body = ucwords(array_keys($data[0])[3]);
                 },
 
                 "columns": [
-                    {"data": "id"},
                     {"data": "userId"},
-                    {"data": "userName"},
+                    {"data": "id"},
                     {"data": "title"},
                     {"data": "body"},
+                    {"data": "userName"},
                 ],
             });
         })
