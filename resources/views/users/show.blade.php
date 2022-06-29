@@ -9,19 +9,19 @@
 
         <div class="container mt-4">
             <div>
-                Name: {{ $user->name }}
-            </div>
-            <div>
                 Email: {{ $user->email }}
             </div>
             <div>
-                User Status: {{ $user->userStatus }}
+                User Role: {{ $user->userRole }}
             </div>
             <div>
                 Created at: {{ $user->created_at }}
             </div>
             <div>
                 Updated at: {{ $user->updated_at }}
+            </div>
+            <div>
+                Expiration Date: {{$user->expiration_date }}
             </div>
         </div>
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -10,6 +11,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Roles;
 
 class UsersController extends Controller
 {
@@ -26,7 +30,6 @@ class UsersController extends Controller
 //                ->orWhere('email', 'like', 'c%')
 //                ->orWhere('email', 'like', '%com');
         })->first()->paginate(7);
-
         return view('users.index', compact('users'));
     }
 
@@ -71,6 +74,14 @@ class UsersController extends Controller
     {
         return view('users.show', [
             'user' => $user
+        ]);
+    }
+
+    public function showCurrentUser()
+    {
+
+        return view('users.show', [
+            'user' => Auth::user()
         ]);
     }
 
@@ -127,8 +138,8 @@ class UsersController extends Controller
             0 => 'id',
             1 => 'name',
             2 => 'email',
-            3 => 'userStatus',
-            4 => 'password',
+            3 => 'userRole',
+            4 => 'expiration_date',
             5 => 'actions'
         );
         $totalData = User::count();
@@ -139,13 +150,16 @@ class UsersController extends Controller
         $dir = $request->input('order.0.dir');
         $search = $request->input('search.value');
 
-        $query = User::when((!empty($search)), function ($query) use ($search) {
+        $query = User::leftJoin('roles', 'users.userRole', '=', 'roles.id')
+            ->select(DB::raw('users.*, roles.role as role'))
+            ->when((!empty($search)), function ($query) use ($search) {
 
-            $query->where(function ($query) use ($search) {
-                $query->where('name', 'LIKE', "%{$search}%")
-                    ->orWhere('email', 'LIKE', "%{$search}%");
+                $query->where(function ($query) use ($search) {
+                    $query->where('name', 'LIKE', "%{$search}%")
+                        ->orWhere('email', 'LIKE', "%{$search}%")
+                        ->orWhere('role', 'LIKE', "%{$search}%");
+                });
             });
-        });
 
 
         $totalFilters = $query->count();
@@ -163,11 +177,13 @@ class UsersController extends Controller
                 $nestedData['id'] = $row->id;
                 $nestedData['name'] = $row->name;
                 $nestedData['email'] = $row->email;
-                $nestedData['userStatus'] = $row->userStatus;
-                $nestedData['password'] = $row->password;
-                $nestedData['actions'] = "<a class=\"btn btn-outline-success\" href=\"/users/$row->id/show\">Show</a>
+                $nestedData['userRole'] = $row->role;
+                $nestedData['expiration_date'] = $row->expiration_date;
+                if (Auth::user()['userRole'] == 1) {
+                    $nestedData['actions'] = "<a class=\"btn btn-outline-success\" href=\"/users/$row->id/show\">Show</a>
                                             <a class=\"btn btn-outline-warning\" href=\"/users/$row->id/edit\">Edit</a>
                                                 <a class=\"btn btn-outline-danger\" onclick=\"return confirm('Are you sure you want to delete user $row->name?')\" href=\"/users/$row->id/delete\">Delete</a>";
+                }
                 $data[] = $nestedData;
 
             }

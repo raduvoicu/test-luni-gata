@@ -1,5 +1,4 @@
-{{--@extends('layouts.app')--}}
-@extends('adminlte::page')
+@extends('layouts.app')
 @section('content')
     <div class="bg-light p-4 rounded">
         <h1>Add new user</h1>
@@ -23,9 +22,23 @@
                     @endif
                 </div>
 
+                <div class="mb-5">
+                    <label for="userRole" class="form-label">Choose a user's role</label>
+                    <select name="userRole" class="form-control" required>
+                        <option value="" selected disabled>Select Role</option>
+                        <?php $roles = \App\Models\Role::all();?>
+                        @foreach($roles as $role)
+                            <option value="{{$role['id']}}">
+                                {{$role['role']}}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
                 <div class="form-group mb-5">
                     <label for="password">Password</label>
-                    <input type="password" class="form-control" name="password" placeholder="Password" required="required">
+                    <input type="password" class="form-control" name="password" placeholder="Password"
+                           required="required">
 
                     @if ($errors->has('password'))
                         <span class="text-danger text-left">{{ $errors->first('password') }}</span>
@@ -34,7 +47,8 @@
 
                 <div class="form-group mb-5">
                     <label for="password">Confirm Password</label>
-                    <input type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password" required="required">
+                    <input type="password" class="form-control" name="password_confirmation"
+                           placeholder="Confirm Password" required="required">
 
                     @if ($errors->has('password_confirmation'))
                         <span class="text-danger text-left">{{ $errors->first('password_confirmation') }}</span>

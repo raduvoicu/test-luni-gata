@@ -4,17 +4,23 @@
 @section('content')
     <div class="container-fluid">
         <div class="bg-light p-4 rounded">
-            <h1>Users</h1>
-            <div class="lead">
-                Manage your users here.
+            @if(Auth::user()['userRole']==1)
+                <h1>Users</h1>
+            @endif
 
-                <a href="{{ route('users.create') }}" class="btn btn-primary btn-sm float-right">Add new user</a>
+            <div class="lead">
+
+                @if(Auth::user()['userRole']==1)
+                    Manage your users here.
+                    <a href="{{ route('users.create') }}" class="btn btn-primary btn-sm float-right">Add new user</a>
+                @else
+                    Manage yourself as a user here.
+                @endif
             </div>
 
             <div class="mt-2">
                 @include('layouts.partials.messages')
             </div>
-
             <table class="table table-bordered table-responsive table-striped"
                    id="pageTable"
                    style="margin-top:10px; width:100%">
@@ -23,9 +29,11 @@
                     <th scope="col" data-priority="1">#</th>
                     <th scope="col" data-priority="1">Name</th>
                     <th scope="col" data-priority="1">Email</th>
-                    <th scope="col">User Status</th>
-                    <th scope="col">Password Hash</th>
-                    <th scope="col">Actions</th>
+                    <th scope="col" data-priority="1">User Role</th>
+                    <th scope="col" data-priority="1">Expiration Date</th>
+                    @if(Auth::user()['userRole']==1)
+                        <th scope="col">Actions</th>
+                    @endif
                 </tr>
                 </thead>
                 <tfoot>
@@ -33,9 +41,11 @@
                     <th scope="col" data-priority="1">#</th>
                     <th scope="col" data-priority="1">Name</th>
                     <th scope="col" data-priority="1">Email</th>
-                    <th scope="col">User Status</th>
-                    <th scope="col">Password Hash</th>
-                    <th scope="col">Actions</th>
+                    <th scope="col" data-priority="1">User Role</th>
+                    <th scope="col" data-priority="1">Expiration Date</th>
+                    @if(Auth::user()['userRole']==1)
+                        <th scope="col">Actions</th>
+                    @endif
                 </tr>
                 </tfoot>
             </table>
@@ -45,12 +55,11 @@
 @stop
 
 @section('js')
-    <script> console.log('Hi!');
+    <script>
         $(document).ready(function () {
-            console.log("mesaj");
             $('#pageTable').DataTable({
                 "columnDefs": [
-                    // { "visible": false, "className": "dt-right", "targets": [0]},
+                    // {"visible": false, "className": "dt-right", "targets": [4]},
                     // {"className": "dt-center", "targets": [3,4,11]},
                     // {"className": "dt-right", "targets": [5]},
                     //  {"orderable": false, "targets": [1]},
@@ -75,9 +84,13 @@
                     {"data": "id"},
                     {"data": "name"},
                     {"data": "email"},
-                    {"data": "userStatus"},
-                    {"data": "password"},
-                    {"data": "actions"},
+                    {"data": "userRole"},
+                    {"data": "expiration_date"},
+                        <?php if(Auth::user()['userRole'] == 1){?>
+                    {
+                        "data": "actions"
+                    }
+                    <?php }?>
                 ],
             });
 

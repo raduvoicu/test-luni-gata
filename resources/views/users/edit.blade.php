@@ -33,18 +33,24 @@
                         <span class="text-danger text-left">{{ $errors->first('email') }}</span>
                     @endif
                 </div>
+                @if(Auth::user()['userRole'] == 1)
+                    <div class="mb-5">
+                        <label for="userRole" class="form-label">Choose a user's role</label>
+                        <select name="userRole" class="form-control">
+                            <option value="" selected disabled>Select Role</option>
+                            <?php $roles = \App\Models\Role::all();?>
+                            @foreach($roles as $role)
+                                <option value="{{$role['id']}}">
+                                    {{$role['role']}}
+                                </option>
+                            @endforeach
+                        </select>
+                        @if ($errors->has('userRole'))
+                            <span class="text-danger text-left">{{ $errors->first('userRole') }}</span>
+                        @endif
+                    </div>
+                @endif
 
-                <div class="mb-3">
-                    <label for="userStatus" class="form-label">User Status</label>
-                    <input value="{{$user->userStatus}}"
-                           type="text"
-                           class="form-control"
-                           name="userStatus"
-                           placeholder="status" required>
-                    @if($errors->has('userStatus'))
-                        <span class="text-danger text-left">{{$errors->first('userStatus')}}</span>
-                    @endif
-                </div>
 
                 <div class="form-group mb-3">
                     <label for="password">Password</label>

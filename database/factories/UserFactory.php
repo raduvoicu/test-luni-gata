@@ -23,18 +23,19 @@ class UserFactory extends Factory
     public function definition()
     {
         $name = $this->faker->name();
-        $userStatus = 'user';
-        $nameWithNoSpaces = str_replace(' ', '', $name);
+        $userRole=strval(rand(2,3));
+        $nameWithNoSpaces = str_replace(' ', '.', $name);
         $domain = 'ropardo.ro';
-        $uniqueSuffix = $this->faker->unique()->word;
-        $username = str_shuffle($nameWithNoSpaces);
-        $uniqueFakeEmail = "$username.$uniqueSuffix@$domain";
+        $username = $nameWithNoSpaces;
+        $uniqueFakeEmail = "$username@$domain";
+        $password = bcrypt('password');
         return [
             'name' => $name,
             'email' => $uniqueFakeEmail,
-            'userStatus' => $userStatus,
+            'userRole' => $userRole,
+            'expiration_date' => now(),
             'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => $password, // password
             'remember_token' => Str::random(10),
         ];
     }

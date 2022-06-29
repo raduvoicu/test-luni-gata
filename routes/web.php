@@ -53,6 +53,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             Route::get('/{user}/edit', 'UsersController@edit')->name('users.edit')->where('user','[0-9]+');
             Route::patch('/{user}/update', 'UsersController@update')->name('users.update');
             Route::get('/{user}/delete', 'UsersController@destroy')->name('users.destroy');
+            Route::get('/user_show', 'UsersController@showCurrentUser')->name('users.showCurrentUser');
         });
 
         Route::group(['prefix'=>'posts'],function(){
@@ -67,5 +68,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('allUsers',[App\Http\Controllers\UsersController::class, 'allUsers']);
 Route::post('allPosts',[App\Http\Controllers\DataRowsController::class,'allPosts']);
+
 
 Auth::routes();
